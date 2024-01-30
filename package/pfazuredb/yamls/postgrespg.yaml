@@ -1,0 +1,23 @@
+pfazuredb.tools.potgrespg.vectorsearch:
+  function: vectorsearch
+  inputs:
+    connection:
+      type:
+      - CustomConnection
+    filter_text:
+      type:
+      - string
+    num_results:
+      type:
+      - int
+    embeddings:
+      type:
+      - list
+    table_name:
+      - str
+    search_type:
+      - str
+  module: pfazuredb.tools.postgrespg
+  name: Azure Postgres Flex Vector Search  
+  description: This is vector search tool for azure postgres Flex via pgvector extension
+  type: python
