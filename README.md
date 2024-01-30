@@ -1,7 +1,26 @@
 # Project
 
-> This repo has been populated by an initial template to help get you started. Please
-> make sure to update the content to build a great experience for community-building.
+Source repository for pf-azuredb library hosted on pypi. 
+
+## Install library from this source
+
+Prerequisites:
+```
+pip install promptflow
+pip install pytest pytest-mock
+```
+change directory to the package folder. 
+```
+cd .\package 
+```
+The run the following command in the package root directory to build your tool:
+
+```
+python setup.py sdist bdist_wheel
+```
+
+This will generate a tool package "pf-azuredb-<version>.tar.gz" and associated whl file inside the "dist" folder. 
+
 
 As the maintainer of this project, please make a few updates:
 
