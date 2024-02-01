@@ -5,7 +5,6 @@ from promptflow.connections import CustomConnection
 @tool
 def vectorsearch(
     connection: CustomConnection,
-    list,
     num_results: int,
     embeddings: list,
     table_name: str,
@@ -15,7 +14,8 @@ def vectorsearch(
     from pgvector.psycopg2 import register_vector
     from psycopg2 import Error
     from psycopg2 import sql
-    import numpy
+    import numpy as np
+    import psycopg2
 
     connection = psycopg2.connect(connection.configs["conn_string"])
     register_vector(connection)
