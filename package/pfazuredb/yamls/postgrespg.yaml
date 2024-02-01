@@ -18,6 +18,6 @@ pfazuredb.tools.potgrespg.vectorsearch:
     search_type:
       - str
   module: pfazuredb.tools.postgrespg
-  name: Azure Postgres Flex Vector Search  
-  description: This is vector search tool for azure postgres Flex via pgvector extension
+  name: Azure Cosmosdb Postgres Vector Search  
+  description: This is vector search tool for azure cosmosdb postgres via pgvector extension
   type: python
