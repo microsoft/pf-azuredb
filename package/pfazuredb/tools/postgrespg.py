@@ -5,11 +5,11 @@ from promptflow.connections import CustomConnection
 @tool
 def vectorsearch(
     connection: CustomConnection,
+    table_name: str,
+    search_type: str,
     num_results: int,
     embeddings: list,
-    table_name: str,
     filter_text: str,
-    search_type: str,
 ) -> str:
     from pgvector.psycopg2 import register_vector
     from psycopg2 import Error
@@ -33,20 +33,20 @@ def vectorsearch(
     cursor = connection.cursor()
     cursor.execute(select_query, (np.array(embeddings),))
     results = cursor.fetchall()
-    # top_ids = []
-    # for i in range(len(results)):
-    #     top_ids.append(int(results[i][0]))
+    top_ids = []
+    for i in range(len(results)):
+        top_ids.append(int(results[i][0]))
 
-    # connection.rollback()
+    connection.rollback()
 
-    # format_ids = ", ".join(["%s"] * len(top_ids))
+    format_ids = ", ".join(["%s"] * len(top_ids))
 
-    # sql = f"SELECT CONCAT('productid: ', productid, ' ', 'score: ', score, ' ', 'text: ', text) AS concat FROM {table_name} WHERE id IN ({format_ids})"
+    sql = f"SELECT CONCAT('productid: ', productid, ' ', 'score: ', score, ' ', 'text: ', text) AS concat FROM {table_name} WHERE id IN ({format_ids})"
 
-    # try:
-    #     cursor.execute(sql, top_ids)
-    #     top_rows = cursor.fetchall()
-    # except (Exception, Error) as e:
-    #     print(f"Error executing SELECT statement: {e}")
-    # retrieved_results = [row[0] for row in top_rows]
-    return results
+    try:
+        cursor.execute(sql, top_ids)
+        top_rows = cursor.fetchall()
+    except (Exception, Error) as e:
+        print(f"Error executing SELECT statement: {e}")
+    retrieved_results = [row[0] for row in top_rows]
+    return retrieved_results
