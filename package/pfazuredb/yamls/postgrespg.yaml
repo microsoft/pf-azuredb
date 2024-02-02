@@ -4,19 +4,20 @@ pfazuredb.tools.potgrespg.vectorsearch:
     connection:
       type:
       - CustomConnection
-    filter_text:
-      type:
-      - string
+    table_name:
+      - str
+    search_type:
+      - str
     num_results:
       type:
       - int
     embeddings:
       type:
       - list
-    table_name:
-      - str
-    search_type:
-      - str
+    filter_text:
+      type:
+      - string
+      
   module: pfazuredb.tools.postgrespg
   name: Azure Cosmosdb Postgres Vector Search  
   description: This is vector search tool for azure cosmosdb postgres via pgvector extension
