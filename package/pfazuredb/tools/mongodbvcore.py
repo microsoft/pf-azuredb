@@ -37,5 +37,6 @@ def vectorsearch(
         },
     ]
     results = list(collection.aggregate(pipeline))
+    retrieved_results = [res["document"]["content"] for res in results]
 
-    return [res["document"]["content"] for res in results]
+    return retrieved_results
