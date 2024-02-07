@@ -5,8 +5,10 @@ pfazuredb.tools.potgrespg.vectorsearch:
       type:
       - CustomConnection
     table_name:
+      type:
       - str
     search_type:
+      type:
       - str
     num_results:
       type:
