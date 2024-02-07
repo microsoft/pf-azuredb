@@ -17,8 +17,8 @@ def vectorsearch(
     import numpy as np
     import psycopg2
 
-    connection = psycopg2.connect(connection.configs["conn_string"])
-    register_vector(connection)
+    pgconnection = psycopg2.connect(connection.configs["conn_string"])
+    register_vector(pgconnection)
     if search_type == "vector":
         select_query = (
             f"SELECT id FROM {table_name} ORDER BY embedding <-> %s LIMIT {num_results}"
@@ -30,23 +30,26 @@ def vectorsearch(
             f"search_type{search_type} is not implemented. Please choose vector or hybrid"
         )
 
-    cursor = connection.cursor()
+    cursor = pgconnection.cursor()
     cursor.execute(select_query, (np.array(embeddings),))
     results = cursor.fetchall()
     top_ids = []
     for i in range(len(results)):
         top_ids.append(int(results[i][0]))
 
-    connection.rollback()
-
+    pgconnection.rollback()
     format_ids = ", ".join(["%s"] * len(top_ids))
-
-    sql = f"SELECT CONCAT('productid: ', productid, ' ', 'score: ', score, ' ', 'text: ', text) AS concat FROM {table_name} WHERE id IN ({format_ids})"
-
+    sql = f"SELECT CONCAT('content: ', content, ' meta_data:[', 'symbol: ', symbol, ', fiscal year: ', fiscalyear, ', fiscal quarter: ', fiscalquarter, ', source: ', source, ' ]') AS concat FROM {table_name} WHERE id IN ({format_ids})"
+    
     try:
         cursor.execute(sql, top_ids)
         top_rows = cursor.fetchall()
     except (Exception, Error) as e:
         print(f"Error executing SELECT statement: {e}")
+    finally:
+        if cursor:
+            cursor.close()
+        if connection:
+            pgconnection.close()
     retrieved_results = [row[0] for row in top_rows]
     return retrieved_results
