@@ -16,6 +16,9 @@ pfazuredb.tools.potgrespg.vectorsearch:
     embeddings:
       type:
       - list
+    vectorsearch_method:
+      type:
+      - string
     filter_text:
       type:
       - string
