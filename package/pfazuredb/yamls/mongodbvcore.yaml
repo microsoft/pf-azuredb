@@ -1,0 +1,22 @@
+pfazuredb.tools.mongodbvcore.vectorsearch:
+  function: vectorsearch
+  inputs:
+    connection:
+      type:
+      - CustomConnection
+    db_name:
+      type:
+      - string
+    collection_name:
+      type:
+      - string
+    num_results:
+      type:
+      - int
+    embeddings:
+      type:
+      - list
+  module: pfazuredb.tools.mongodbvcore
+  name: Azure CosmosDB MongoDB vCore Vector Search
+  description: This is a vector search tool for azure cosmosdb mongodb vcore 
+  type: python
