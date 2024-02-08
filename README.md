@@ -31,6 +31,8 @@ To install the package in your python environment, please use the following comm
 pip install .\dist\pf_azuredb-<version>-py3-none-any.whl --force-reinstall
 ```
 
+At this stage, a new version is installed in your python environment and you can switch to your promptflow project. By clicking + on the promptflow, you will see these tools are added and ready to use. 
+
 ## Maintainer
 
 As the maintainer of this project, please make a few updates:
