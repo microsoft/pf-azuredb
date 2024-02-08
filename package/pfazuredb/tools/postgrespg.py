@@ -16,7 +16,8 @@ def vectorsearch(
     import numpy as np
     import psycopg2
     import json
-
+    
+    # establish connection
     pgconnection = psycopg2.connect(connection.configs["conn_string"])
     register_vector(pgconnection)
 
