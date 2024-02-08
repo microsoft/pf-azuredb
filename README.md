@@ -2,6 +2,10 @@
 
 Source repository for pf-azuredb library hosted on pypi. 
 
+This library is a promptflow tool/pluggin to do vector search from azure cosmosdb mongodb vCore and azure cosmosdb postgres. 
+
+A sample usage of this library can be found at the following repo: https://github.com/microsoft/promptflow-rag-project-template
+
 ## Install library from this source
 
 Prerequisites:
