@@ -1,6 +1,7 @@
 from promptflow import tool
 from promptflow.connections import CustomConnection
 
+
 @tool
 def vectorsearch(
     connection: CustomConnection,
@@ -16,7 +17,7 @@ def vectorsearch(
     import numpy as np
     import psycopg2
     import json
-    
+
     # establish connection
     pgconnection = psycopg2.connect(connection.configs["conn_string"])
     register_vector(pgconnection)
@@ -31,11 +32,9 @@ def vectorsearch(
         raise Error(
             f"Vector search method '{vectorsearch_method}' is not implemented. Please choose one of: L2, Cosine, Inner."
         )
-    
+
     if search_type == "vector":
-        select_query = (
-            f"SELECT * FROM {table_name} ORDER BY embedding {distance_operator} %s LIMIT {num_results}"
-        )
+        select_query = f"SELECT * FROM {table_name} ORDER BY embedding {distance_operator} %s LIMIT {num_results}"
     elif search_type == "hybrid":
         select_query = f"SELECT * FROM {table_name} where {filter_text} ORDER BY embedding {distance_operator} %s LIMIT {num_results}"
     else:
