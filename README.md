@@ -21,7 +21,7 @@ python setup.py sdist bdist_wheel
 
 This will generate a tool package "pf-azuredb-<version>.tar.gz" and associated whl file inside the "dist" folder. 
 
-To install the packate in your python environment, please use the following command. Note to replace version with the actual version. 
+To install the package in your python environment, please use the following command. Note to replace version with the actual version. 
 
 ```
 pip install .\dist\pf_azuredb-<version>-py3-none-any.whl --force-reinstall
