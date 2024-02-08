@@ -2,6 +2,10 @@
 
 Source repository for pf-azuredb library hosted on pypi. 
 
+This library is a promptflow tool/pluggin to do vector search from azure cosmosdb mongodb vCore and azure cosmosdb postgres. 
+
+A sample usage of this library can be found at the following repo: https://github.com/microsoft/promptflow-rag-project-template
+
 ## Install library from this source
 
 Prerequisites:
@@ -21,11 +25,13 @@ python setup.py sdist bdist_wheel
 
 This will generate a tool package "pf-azuredb-<version>.tar.gz" and associated whl file inside the "dist" folder. 
 
-To install the packate in your python environment, please use the following command. Note to replace version with the actual version. 
+To install the package in your python environment, please use the following command. Note to replace version with the actual version. 
 
 ```
 pip install .\dist\pf_azuredb-<version>-py3-none-any.whl --force-reinstall
 ```
+
+At this stage, a new version is installed in your python environment and you can switch to your promptflow project. By clicking + on the promptflow, you will see these tools are added and ready to use. 
 
 ## Maintainer
 
