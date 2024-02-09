@@ -25,7 +25,7 @@ def test_postgres_connection() -> CustomConnection:
     )
     return test_postgres_connection
 
-
+@pytest.mark.skip(reason="Need to provide a valid .env file for the Azure CosmosDB POSTGRES CONNECTION STRING AND TABLE_NAME")
 class TestTool:
     def test_vectorsearch(
         self,
