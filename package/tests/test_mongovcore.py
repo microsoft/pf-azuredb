@@ -25,7 +25,7 @@ def test_mongo_connection() -> CustomConnection:
     )
     return test_mongo_connection
 
-
+@pytest.mark.skip(reason="Need to provide a valid .env file for the Azure CosmosDB MongoDB URI, DB_NAME, and COLLECTION_NAME")
 class TestTool:
     def test_vectorsearch(
         self,
