@@ -14,7 +14,7 @@ setup(
     include_package_data=True,  # This line tells setuptools to include files from MANIFEST.in
     install_requires=[
         "numpy==1.24.4",
-        "psycopg2==2.9.9",
+        "psycopg2-binary==2.9.6",
         "pymongo==4.6.1",
         "pgvector==0.2.0",
     ],
