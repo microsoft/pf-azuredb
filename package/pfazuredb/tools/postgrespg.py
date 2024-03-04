@@ -34,9 +34,19 @@ def vectorsearch(
         )
 
     if search_type == "vector":
-        select_query = f"SELECT * FROM {table_name} ORDER BY embedding {distance_operator} %s LIMIT {num_results}"
+        if vectorsearch_method == "L2":
+            select_query = f"SELECT *, (embedding {distance_operator} %s) AS score FROM {table_name} ORDER BY score LIMIT {num_results}"
+        elif vectorsearch_method == "Cosine":
+            select_query = f"SELECT *, 1 - (embedding {distance_operator} %s) AS score FROM {table_name} ORDER BY score DESC LIMIT {num_results}"
+        elif vectorsearch_method == "Inner":
+            select_query = f"SELECT *, (embedding {distance_operator} %s) * -1 AS score FROM {table_name} ORDER BY score DESC LIMIT {num_results}"
     elif search_type == "hybrid":
-        select_query = f"SELECT * FROM {table_name} where {filter_text} ORDER BY embedding {distance_operator} %s LIMIT {num_results}"
+        if vectorsearch_method == "L2":
+            select_query = f"SELECT *, (embedding {distance_operator} %s) AS score FROM {table_name} where {filter_text} ORDER BY score LIMIT {num_results}"
+        elif vectorsearch_method == "Cosine":
+            select_query = f"SELECT *, 1 - (embedding {distance_operator} %s) AS score FROM {table_name} where {filter_text}  ORDER BY score DESC LIMIT {num_results}"
+        elif vectorsearch_method == "Inner":
+            select_query = f"SELECT *, (embedding {distance_operator} %s) * -1 AS score FROM {table_name} where {filter_text} ORDER BY score DESC LIMIT {num_results}"
     else:
         raise Error(
             f"search_type{search_type} is not implemented. Please choose vector or hybrid"
@@ -55,6 +65,7 @@ def vectorsearch(
                 row_data[col.name] = row[idx].tolist()
             else:
                 row_data[col.name] = row[idx]
+        del row_data['embedding']
         retrieved_results.append(row_data)
 
     cursor.close()
