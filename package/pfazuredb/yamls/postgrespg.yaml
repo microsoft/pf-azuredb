@@ -13,6 +13,9 @@ pfazuredb.tools.potgrespg.vectorsearch:
     num_results:
       type:
       - int
+    question:
+      type:
+      - str
     embeddings:
       type:
       - list
