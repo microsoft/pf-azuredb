@@ -82,7 +82,7 @@ def vectorsearch(
     cursor = pgconnection.cursor()
 
     if search_type != "hybrid":
-        cursor.execute(select_query, (np.array(embeddings), ))
+        cursor.execute(select_query, (np.array(embeddings),))
         results = cursor.fetchall()
 
         retrieved_results = []
@@ -94,10 +94,13 @@ def vectorsearch(
                     row_data[col.name] = row[idx].tolist()
                 else:
                     row_data[col.name] = row[idx]
-            del row_data['embedding']
+            del row_data["embedding"]
             retrieved_results.append(row_data)
     else:
-        cursor.execute(select_query, {'question': question, 'embedding': (np.array(embeddings), ), 'k': 60})
+        cursor.execute(
+            select_query,
+            {"question": question, "embedding": (np.array(embeddings),), "k": 60},
+        )
         results = cursor.fetchall()
 
         retrieved_results = []
@@ -109,8 +112,8 @@ def vectorsearch(
                     row_data[col.name] = row[idx].tolist()
                 else:
                     row_data[col.name] = row[idx]
-            del row_data['embedding']
-            row_data['score'] = float(row_data['score'])
+            del row_data["embedding"]
+            row_data["score"] = float(row_data["score"])
             retrieved_results.append(row_data)
 
     cursor.close()
