@@ -26,9 +26,11 @@ def vectorsearch(
 
     if search_type == "vector":
         params = {"vector": embeddings, "path": embedding_key, "k": num_results}
-    elif search_type == "filter_vector" or search_type=="hybrid":
-        if search_type =="hybrid":
-            warnings.warn("hybrid for search type input is assumed to be 'filter_vector'", Warning)
+    elif search_type == "filter_vector" or search_type == "hybrid":
+        if search_type == "hybrid":
+            warnings.warn(
+                "hybrid for search type input is assumed to be 'filter_vector'", Warning
+            )
         filters_query_loaded = json.loads(filter_query)
 
         params = {
@@ -37,8 +39,8 @@ def vectorsearch(
             "k": num_results,
             "filter": filters_query_loaded,
         }
-    else: 
-        raise ValueError("Invalid Input. Valid search_type: 'vector', 'filter_vector'" )
+    else:
+        raise ValueError("Invalid Input. Valid search_type: 'vector', 'filter_vector'")
 
     query_field = {"$search": {"cosmosSearch": params, "returnStoredSource": True}}
 
