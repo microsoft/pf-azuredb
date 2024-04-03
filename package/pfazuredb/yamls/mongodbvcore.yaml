@@ -16,14 +16,14 @@ pfazuredb.tools.mongodbvcore.vectorsearch:
     embeddings:
       type:
       - list
-    filter_query:
-      type:
-      - string
-      default: "{}"
     search_type:
       type:
       - string
       default: vector
+    filter_query:
+      type:
+      - string
+      default: "{}"
     embedding_key:
       type:
       - string
