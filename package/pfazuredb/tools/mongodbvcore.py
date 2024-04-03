@@ -26,11 +26,13 @@ def vectorsearch(
 
     if search_type == "vector" and filter_query:
         warnings.warn(
-            "\nwarning:\nfilter_query is being ignored for search_type=vector:\n"
+            "\nwarning:\nfilter_query is being ignored for search_type=vector!\n",
+            Warning,
         )
-    elif search_type in ("filter_vector", "hybrid") and not filter_query:
+    elif search_type in ("filter_vector", "hybrid") and not json.loads(filter_query):
         warnings.warn(
-            ":\nwarning:\nfilter_vector/hybrid is being selected but no filter is provided. In this case, only vector search applies:\n"
+            ":\nwarning:\nfilter_vector/hybrid is being selected but no filter is provided. In this case, only vector search applies!\n",
+            Warning,
         )
         pass
 
@@ -39,7 +41,8 @@ def vectorsearch(
     elif search_type == "filter_vector" or search_type == "hybrid":
         if search_type == "hybrid":
             warnings.warn(
-                "hybrid for search type input is assumed to be 'filter_vector'", Warning
+                ":\nhybrid for search type input is assumed to be 'filter_vector!'\n",
+                Warning,
             )
         filters_query_loaded = json.loads(filter_query)
 
