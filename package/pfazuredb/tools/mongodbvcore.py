@@ -24,6 +24,16 @@ def vectorsearch(
     db = mongo_client[db_name]
     collection = db[collection_name]
 
+    if search_type == "vector" and filter_query:
+        warnings.warn(
+            "\nwarning:\nfilter_query is being ignored for search_type=vector:\n"
+        )
+    elif search_type in ("filter_vector", "hybrid") and not filter_query:
+        warnings.warn(
+            ":\nwarning:\nfilter_vector/hybrid is being selected but no filter is provided. In this case, only vector search applies:\n"
+        )
+        pass
+
     if search_type == "vector":
         params = {"vector": embeddings, "path": embedding_key, "k": num_results}
     elif search_type == "filter_vector" or search_type == "hybrid":
