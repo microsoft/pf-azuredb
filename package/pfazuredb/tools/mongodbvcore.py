@@ -37,6 +37,8 @@ def vectorsearch(
             "k": num_results,
             "filter": filters_query_loaded,
         }
+    else: 
+        raise ValueError("Invalid Input. Valid search_type: 'vector', 'filter_search'" )
 
     query_field = {"$search": {"cosmosSearch": params, "returnStoredSource": True}}
 
