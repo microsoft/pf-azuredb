@@ -5,7 +5,7 @@ PACKAGE_NAME = "pf-azuredb"
 setup(
     name=PACKAGE_NAME,
     author="Hossein K. Heris and applied ai team@azure data",
-    version="0.0.4",
+    version="0.0.5",
     description="Package for use in promptflow for vector search in azure db",
     packages=find_packages(),
     entry_points={

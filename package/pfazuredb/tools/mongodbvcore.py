@@ -1,5 +1,8 @@
 from promptflow import tool
 from promptflow.connections import CustomConnection
+from typing import Any, Dict, List, Optional, cast
+import json
+import warnings
 
 
 @tool
@@ -9,26 +12,53 @@ def vectorsearch(
     collection_name: str,
     num_results: int,
     embeddings: list,
+    filter_query: str = "{}",
+    search_type: str = "vector",
+    embedding_key: str = "contentVector",
 ) -> str:
     from pymongo import MongoClient
 
     uri = connection.configs["AZURE_COSMOSDB_MONGODB_URI"]
     mongo_client = MongoClient(uri)
-    query_embedding = embeddings
 
     db = mongo_client[db_name]
     collection = db[collection_name]
+
+    if search_type == "vector" and filter_query:
+        warnings.warn(
+            "\nwarning:\nfilter_query is being ignored for search_type=vector!\n",
+            Warning,
+        )
+    elif search_type in ("filter_vector", "hybrid") and not json.loads(filter_query):
+        warnings.warn(
+            ":\nwarning:\nfilter_vector/hybrid is being selected but no filter is provided. In this case, only vector search applies!\n",
+            Warning,
+        )
+        pass
+
+    if search_type == "vector":
+        params = {"vector": embeddings, "path": embedding_key, "k": num_results}
+    elif search_type == "filter_vector" or search_type == "hybrid":
+        if search_type == "hybrid":
+            warnings.warn(
+                ":\nhybrid for search type input is assumed to be 'filter_vector!'\n",
+                Warning,
+            )
+        filters_query_loaded = json.loads(filter_query)
+
+        params = {
+            "vector": embeddings,
+            "path": embedding_key,
+            "k": num_results,
+            "filter": filters_query_loaded,
+        }
+    else:
+        raise ValueError("Invalid Input. Valid search_type: 'vector', 'filter_vector'")
+
+    query_field = {"$search": {"cosmosSearch": params, "returnStoredSource": True}}
+
     pipeline = [
-        {
-            "$search": {
-                "cosmosSearch": {
-                    "vector": query_embedding,
-                    "path": "contentVector",  # embedding_key,
-                    "k": num_results,  # , "efsearch": 40 # optional for HNSW only
-                },
-                "returnStoredSource": True,
-            }
-        },
+        query_field,
         {
             "$project": {
                 "similarityScore": {"$meta": "searchScore"},
@@ -36,7 +66,11 @@ def vectorsearch(
             }
         },
     ]
-    results = list(collection.aggregate(pipeline))
-    retrieved_results = [res["document"]["content"] for res in results]
 
+    results = list(collection.aggregate(pipeline))
+    undesired_keys = {embedding_key, "_id"}
+    retrieved_results = [
+        {k: v for k, v in res["document"].items() if k not in undesired_keys}
+        for res in results
+    ]
     return retrieved_results
