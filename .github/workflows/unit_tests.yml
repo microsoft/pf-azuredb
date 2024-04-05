@@ -27,7 +27,7 @@ jobs:
           echo "COSMOS_DB_MONGO_URI = ${{ secrets.COSMOS_DB_MONGO_URI }}" >> /.env
           echo "DB_NAME =${{ secrets.DB_NAME }} >> /.env"
           echo "COLLECTION_NAME = ${{ secrets.COLLECTION_NAME }} >> /.env"
-          echo "COSMOSDB_POSTGRES_CONN_STRING = $ {{ secrets.COSMOSDB_POSTGRES_CONN_STRING }} >> /.env"
+          echo "COSMOSDB_POSTGRES_CONN_STRING = $ {{ secrets.COSMOSDB_POSTGRES_CONN_STRING }}" >> /.env
           echo "TABLE_NAME = $ {{ secrets.TABLE_NAME }} >> ./env" 
 
       - name: Install dependencies from pull request branch
