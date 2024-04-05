@@ -24,7 +24,7 @@ jobs:
       
       - name: Create .env file in package directory 
         run: |
-          mkdir package  # Create the package directory if it doesn't exist
+          mkdir package  # Create the package directory if it doesn't exist already
           echo "COSMOS_DB_MONGO_URI=${{ secrets.COSMOS_DB_MONGO_URI }}" >> ./package/.env
           echo "DB_NAME=${{ secrets.DB_NAME }}" >> ./package/.env
           echo "COLLECTION_NAME=${{ secrets.COLLECTION_NAME }}" >> ./package/.env
