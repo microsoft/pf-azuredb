@@ -1,0 +1,23 @@
+name: Feature Request
+description: Request a new feature
+title: "[Feature Request]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this feature request!
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: Feature Description
+      description: Describe the feature you are requesting. 
+    validations:
+      required: true
+  - type: textarea
+    id: why-feature
+    attributes:
+      label: Reason
+      description: Why do you need the new feature? Why do you think it is important?
+    validations:
+      required: false
