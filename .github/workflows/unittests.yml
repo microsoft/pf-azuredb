@@ -30,6 +30,11 @@ jobs:
           python -m pip install --upgrade pip 
           cd package 
           python setup.py install 
+      
+      - name: Install promptflow dependencies
+        run: | 
+          python -m pip install promptflow
+          python -m pip install promptflow-tools
 
       - name: Install pytest
         run: |
