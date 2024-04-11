@@ -1,12 +1,14 @@
 name: Pylint
 
 on:
-  push:
-    branches:
-      - "main"
-  pull_request:
-    branches:
-      - '*'
+  workflow_dispatch:  # Trigger the workflow manually
+# on:
+#   push:
+#     branches:
+#       - "main"
+#   pull_request:
+#     branches:
+#       - '*'
 
 jobs:
   build:
