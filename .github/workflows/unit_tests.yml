@@ -1,0 +1,52 @@
+name: Unit Testing
+
+on:
+  push:
+    branches:
+      - "main"
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      
+      - name: Create .env file in package directory 
+        run: |
+          touch package/.env 
+          echo "COSMOS_DB_MONGO_URI=${{ secrets.COSMOS_DB_MONGO_URI }}" >> ./package/.env
+          echo "DB_NAME=${{ secrets.DB_NAME }}" >> ./package/.env
+          echo "COLLECTION_NAME=${{ secrets.COLLECTION_NAME }}" >> ./package/.env
+          echo "COSMOSDB_POSTGRES_CONN_STRING=${{ secrets.COSMOSDB_POSTGRES_CONN_STRING }}" >> ./package/.env
+          echo "TABLE_NAME=${{ secrets.TABLE_NAME }}" >> ./package/.env
+
+      - name: Install dependencies from pull request branch
+        run: |
+          python -m pip install --upgrade pip 
+          cd package 
+          python setup.py install 
+      
+      - name: Install promptflow dependencies
+        run: | 
+          python -m pip install promptflow
+          python -m pip install promptflow-tools
+
+      - name: Install pytest
+        run: |
+          python -m pip install pytest 
+
+      - name: Run tests with installed dependencies 
+        run: |
+          cd package 
+          pytest tests/

@@ -26,18 +26,20 @@ def test_postgres_connection() -> CustomConnection:
     return test_postgres_connection
 
 
-@pytest.mark.skip(
-    reason="Need to provide a valid .env file for the Azure CosmosDB POSTGRES CONNECTION STRING AND TABLE_NAME"
-)
+# @pytest.mark.skip(
+#     reason="Need to provide a valid .env file for the Azure CosmosDB POSTGRES CONNECTION STRING AND TABLE_NAME"
+# )
 class TestTool:
     def test_vectorsearch(
         self,
         test_postgres_connection,
         table_name=config["TABLE_NAME"],
-        num_results=3,
         search_type="vector",
-        vectorsearch_method="L2",
+        num_results=3,
         embeddings=[0.1, 0.2, 0.3] * 512,
+        vectorsearch_method="L2",
+        question = "None",
+        filter_text = "None"
     ):
         result = vectorsearch(
             connection=test_postgres_connection,
@@ -46,7 +48,8 @@ class TestTool:
             vectorsearch_method=vectorsearch_method,
             num_results=num_results,
             embeddings=embeddings,
-            filter_text=None,
+            filter_text=filter_text,
+            question = question
         )
         # Assert that the result is a list
         assert isinstance(result, list), "Result is not a list"
