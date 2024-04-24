@@ -18,10 +18,7 @@ config = dotenv_values(os.path.join(root_dir, ".env"))
 def test_postgres_connection() -> CustomConnection:
     test_postgres_connection = CustomConnection(
         name="postgres_connection",
-        secrets={"my_key": "DUMMY"},  # unsupported
-        configs={
-            "conn_string": config["COSMOSDB_POSTGRES_CONN_STRING"],
-        },
+        secrets={"AZURE_COSMOSDB_POSTGRES_CONN_STRING": config["COSMOSDB_POSTGRES_CONN_STRING"]},
     )
     return test_postgres_connection
 
