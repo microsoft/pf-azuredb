@@ -18,7 +18,11 @@ config = dotenv_values(os.path.join(root_dir, ".env"))
 def test_postgres_connection() -> CustomConnection:
     test_postgres_connection = CustomConnection(
         name="postgres_connection",
-        secrets={"AZURE_COSMOSDB_POSTGRES_CONN_STRING": config["COSMOSDB_POSTGRES_CONN_STRING"]},
+        secrets={
+            "AZURE_COSMOSDB_POSTGRES_CONN_STRING": config[
+                "COSMOSDB_POSTGRES_CONN_STRING"
+            ]
+        },
     )
     return test_postgres_connection
 
@@ -35,8 +39,8 @@ class TestTool:
         num_results=3,
         embeddings=[0.1, 0.2, 0.3] * 512,
         vectorsearch_method="L2",
-        question = "None",
-        filter_text = "None"
+        question="None",
+        filter_text="None",
     ):
         result = vectorsearch(
             connection=test_postgres_connection,
@@ -46,7 +50,7 @@ class TestTool:
             num_results=num_results,
             embeddings=embeddings,
             filter_text=filter_text,
-            question = question
+            question=question,
         )
         # Assert that the result is a list
         assert isinstance(result, list), "Result is not a list"

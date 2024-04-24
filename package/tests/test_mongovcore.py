@@ -18,7 +18,9 @@ config = dotenv_values(os.path.join(root_dir, ".env"))
 def test_mongo_connection() -> CustomConnection:
     test_mongo_connection = CustomConnection(
         name="mongovcore_connection",
-        secrets={"AZURE_COSMOSDB_MONGODB_URI": config["COSMOS_DB_MONGO_URI"]},  # unsupported
+        secrets={
+            "AZURE_COSMOSDB_MONGODB_URI": config["COSMOS_DB_MONGO_URI"]
+        }, 
     )
     return test_mongo_connection
 
