@@ -20,7 +20,7 @@ def vectorsearch(
     import json
 
     # establish connection
-    pgconnection = psycopg2.connect(connection.configs["conn_string"])
+    pgconnection = psycopg2.connect(connection.secrets["AZURE_COSMOSDB_POSTGRES_CONN_STRING"])
     register_vector(pgconnection)
 
     if vectorsearch_method == "L2":

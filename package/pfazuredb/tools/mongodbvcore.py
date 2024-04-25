@@ -18,7 +18,7 @@ def vectorsearch(
 ) -> str:
     from pymongo import MongoClient
 
-    uri = connection.configs["AZURE_COSMOSDB_MONGODB_URI"]
+    uri = connection.secrets["AZURE_COSMOSDB_MONGODB_URI"]
     mongo_client = MongoClient(uri)
 
     db = mongo_client[db_name]
