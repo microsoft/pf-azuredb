@@ -59,7 +59,7 @@ def vectorsearch(
         ),
         keyword_search AS (
             SELECT *, RANK () OVER (ORDER BY ts_rank_cd(to_tsvector('english', content), question) DESC)
-            FROM {table_name}, plainto_tsquery('english', %(question)s) question
+            FROM {table_name}, phraseto_tsquery('english', %(question)s) question
             WHERE to_tsvector('english', content) @@ question
             ORDER BY ts_rank_cd(to_tsvector('english', content), question) DESC
             LIMIT 20
