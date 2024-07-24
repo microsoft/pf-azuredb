@@ -75,7 +75,7 @@ class TestTool:
     def test_vectorsearch_flex(
         self,
         test_postgresql_flex_connection,
-        table_name=config["TABLE_NAME"],
+        table_name=config["TABLE_NAME_FLEX"],
         search_type="vector",
         num_results=3,
         embeddings=[0.1, 0.2, 0.3] * 512,

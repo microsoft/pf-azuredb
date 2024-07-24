@@ -28,8 +28,10 @@ jobs:
           echo "COSMOS_DB_MONGO_URI=${{ secrets.COSMOS_DB_MONGO_URI }}" >> ./package/.env
           echo "DB_NAME=${{ secrets.DB_NAME }}" >> ./package/.env
           echo "COLLECTION_NAME=${{ secrets.COLLECTION_NAME }}" >> ./package/.env
-          echo "COSMOSDB_POSTGRES_CONN_STRING=${{ secrets.COSMOSDB_POSTGRES_CONN_STRING }}" >> ./package/.env
+          echo "COSMOS_DB_POSTGRESQL_CONN_STRING=${{ secrets.COSMOS_DB_POSTGRESQL_CONN_STRING }}" >> ./package/.env
           echo "TABLE_NAME=${{ secrets.TABLE_NAME }}" >> ./package/.env
+          echo "POSTGRESQL_FLEX_CONN_STRING=${{ secrets.POSTGRESQL_FLEX_CONN_STRING }}" >> ./package/.env
+          echo "TABLE_NAME_FLEX=${{ secrets.TABLE_NAME_FLEX }}" >> ./package/.env
 
       - name: Install dependencies from pull request branch
         run: |
