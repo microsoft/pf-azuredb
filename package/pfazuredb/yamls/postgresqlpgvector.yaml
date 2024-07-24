@@ -1,4 +1,4 @@
-pfazuredb.tools.potgrespg.vectorsearch:
+pfazuredb.tools.postgresqlpgvector.vectorsearch:
   function: vectorsearch
   inputs:
     connection:
@@ -26,7 +26,7 @@ pfazuredb.tools.potgrespg.vectorsearch:
       type:
       - string
       
-  module: pfazuredb.tools.postgrespg
-  name: Azure Cosmosdb Postgres Vector Search  
-  description: This is vector search tool for azure cosmosdb postgres via pgvector extension
+  module: pfazuredb.tools.postgresqlpgvector
+  name: Azure postgreSQL Vector Search  
+  description: This is a vector search tool for postgreSQL single and flexible server via pgvector extension
   type: python
