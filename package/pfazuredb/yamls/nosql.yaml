@@ -1,0 +1,35 @@
+pfazuredb.tools.nosql.vectorsearch:
+  function: vectorsearch
+  inputs:
+    connection:
+      type:
+      - CustomConnection
+    db_name:
+      type:
+      - string
+    container_name:
+      type:
+      - string
+    num_results:
+      type:
+      - int
+    embeddings:
+      type:
+      - list
+    search_type:
+      type:
+      - string
+      default: vector
+    filter_text:
+      type:
+      - string
+      default: ""
+    search_index_name:
+      type:
+      - string
+      default: contentVector
+
+  module: pfazuredb.tools.nosql
+  name: Azure CosmosDB NoSQL Vector Search
+  description: This is a vector search tool for azure cosmosdb NoSQL
+  type: python
