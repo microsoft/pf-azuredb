@@ -35,7 +35,7 @@ class TestTool:
         db_name=config["DB_NAME_NOSQL"],
         container_name=config["CONTAINER_NAME_NOSQL"],
         num_results=3,
-        embeddings= [1], #[0.1, 0.2] * 512,
+        embeddings= [0.1, 0.2, 0.3] * 512,
         search_type="vector",
         filter_text="None",
         search_index_name="contentVector",
@@ -57,6 +57,10 @@ class TestTool:
         # Assert that each element in the result list is a dictionary
         # assert all(isinstance(item, dict) for item in result), "Result contains non-dictionary elements"
         assert len(result) == num_results
+
+        assert "SimilarityScore" in result[0].keys()
+        # Make sure similarity score is calculated
+        assert result[0]["SimilarityScore"] is not None
 
 # Run the unit tests
 if __name__ == "__main__":
