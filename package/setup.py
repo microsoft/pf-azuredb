@@ -5,7 +5,7 @@ PACKAGE_NAME = "pf-azuredb"
 setup(
     name=PACKAGE_NAME,
     author="Hossein K. Heris and applied ai team@azure data",
-    version="1.0.1",
+    version="1.1.0",
     description="Package for use in promptflow for vector search in azure db",
     packages=find_packages(),
     entry_points={
@@ -17,5 +17,6 @@ setup(
         "psycopg2-binary==2.9.6",
         "pymongo==4.6.1",
         "pgvector==0.2.0",
+        "azure-cosmos==4.7.0",
     ],
 )
