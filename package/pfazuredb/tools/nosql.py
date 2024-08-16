@@ -18,12 +18,18 @@ def vectorsearch(
     search_index_name: str,
 ) -> str:
 
+    # Initialize Cosmos DB client using the connection string from secrets
     COSMOS_NOSQL_CLIENT = CosmosClient.from_connection_string(
         connection.secrets["NOSQL_CONN_STRING"]
     )
+
+    # Get the database client
     database = COSMOS_NOSQL_CLIENT.get_database_client(db_name)
+
+    # Get the container client
     container = database.get_container_client(container_name)
 
+    # Query to get a sample entry from the container
     output = container.query_items(
         query="SELECT * FROM c OFFSET 0 LIMIT 1", enable_cross_partition_query=True
     )
@@ -39,6 +45,8 @@ def vectorsearch(
     ]
     non_vector_keys = ["c." + key for key in non_vector_keys]
     columns_str = ", ".join(non_vector_keys)
+
+    # Perform vector search or filter_vector search based on search_type
     if search_type == "vector":
         output = container.query_items(
             query=f"SELECT TOP @num_results {columns_str}, VectorDistance(c.{search_index_name}, @embedding) AS SimilarityScore FROM c ORDER BY VectorDistance(c.{search_index_name},@embedding)",
@@ -69,7 +77,8 @@ def vectorsearch(
             ans.append(res)
         except StopIteration:
             break
-    # sanity checking the results
+    
+    # Sanity checking the results
     if not ans:
         warnings.warn("No results found for the given query")
     if len(ans) < num_results:
@@ -83,5 +92,6 @@ def vectorsearch(
     return ans
 
 
+# Helper function to check if a value is a vector
 def is_vector(value):
     return isinstance(value, list) and all(isinstance(i, (int, float)) for i in value)
