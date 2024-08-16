@@ -18,23 +18,16 @@ config = dotenv_values(os.path.join(root_dir, ".env"))
 def test_postgresql_connection() -> CustomConnection:
     test_postgresql_connection = CustomConnection(
         name="postgresql_connection",
-        secrets={
-            "POSTGRESQL_CONN_STRING": config[
-                "COSMOS_DB_POSTGRESQL_CONN_STRING"
-            ]
-        },
+        secrets={"POSTGRESQL_CONN_STRING": config["COSMOS_DB_POSTGRESQL_CONN_STRING"]},
     )
     return test_postgresql_connection
+
 
 @pytest.fixture
 def test_postgresql_flex_connection() -> CustomConnection:
     test_postgres_connection = CustomConnection(
         name="postgresql_flex_connection",
-        secrets={
-            "POSTGRESQL_CONN_STRING": config[
-                "POSTGRESQL_FLEX_CONN_STRING"
-            ]
-        },
+        secrets={"POSTGRESQL_CONN_STRING": config["POSTGRESQL_FLEX_CONN_STRING"]},
     )
     return test_postgres_connection
 
@@ -71,7 +64,7 @@ class TestTool:
         # Assert that each element in the result list is a dictionary
         # assert all(isinstance(item, dict) for item in result), "Result contains non-dictionary elements"
         assert len(result) == num_results
-    
+
     def test_vectorsearch_flex(
         self,
         test_postgresql_flex_connection,

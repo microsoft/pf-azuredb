@@ -77,7 +77,7 @@ def vectorsearch(
             ans.append(res)
         except StopIteration:
             break
-    
+
     # Sanity checking the results
     if not ans:
         warnings.warn("No results found for the given query")

@@ -58,7 +58,7 @@ class TestTool:
         # Assert that the result contains the similarity key.
         # note: this case resolve cases where embedding dimension mismatch
         assert "SimilarityScore" in result[0].keys()
-        #Make sure similarity score is calculated
+        # Make sure similarity score is calculated
         assert result[0]["SimilarityScore"] is not None
 
 
