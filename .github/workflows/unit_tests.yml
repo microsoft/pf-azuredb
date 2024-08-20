@@ -32,6 +32,9 @@ jobs:
           echo "TABLE_NAME=${{ secrets.TABLE_NAME }}" >> ./package/.env
           echo "POSTGRESQL_FLEX_CONN_STRING=${{ secrets.POSTGRESQL_FLEX_CONN_STRING }}" >> ./package/.env
           echo "TABLE_NAME_FLEX=${{ secrets.TABLE_NAME_FLEX }}" >> ./package/.env
+          echo "COSMOS_DB_NOSQL_CONN_STRING=${{ secrets.COSMOS_DB_NOSQL_CONN_STRING }}" >> ./package/.env
+          echo "CONTAINER_NAME_NOSQL=${{ secrets.CONTAINER_NAME_NOSQL }}" >> ./package/.env
+          echo "DB_NAME_NOSQL=${{ secrets.DB_NAME_NOSQL }}" >> ./package/.env
 
       - name: Install dependencies from pull request branch
         run: |
