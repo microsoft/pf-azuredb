@@ -15,7 +15,7 @@ setup(
     install_requires=[
         "numpy==1.24.4",
         "psycopg2-binary==2.9.6",
-        "pymongo==4.6.1",
+        "pymongo==4.6.3",
         "pgvector==0.2.0",
         "azure-cosmos==4.7.0",
     ],
